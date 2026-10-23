@@ -24,7 +24,8 @@ test('source package is a DSH bundle with a web client', () => {
   assert.deepEqual(pkg.dsh?.client?.inject, ['@deepseek-ai/dsh-client-ui-settings'])
   assert.equal(pkg.exports?.['./client'], './client/client.js')
   assert.equal(pkg.publishConfig?.access, 'public')
-  assert.equal(pkg.engines?.dsh, '>=0.2.1-rc.2 <0.3.0')
+  assert.equal(pkg.engines?.dsh, '*')
+  assert.equal(pkg.dsh?.compatibility?.dsh, '*')
   assert.equal(pkg.chromeDevtoolsMcp?.channel, 'latest')
 })
 

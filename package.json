@@ -53,7 +53,7 @@
       ]
     },
     "compatibility": {
-      "dsh": ">=0.2.1-rc.2 <0.3.0",
+      "dsh": "*",
       "profiles": [
         "web"
       ]
@@ -61,7 +61,7 @@
   },
   "engines": {
     "node": ">=22",
-    "dsh": ">=0.2.1-rc.2 <0.3.0"
+    "dsh": "*"
   },
   "scripts": {
     "test": "node --check client/client.js && node --test test/*.test.mjs",
