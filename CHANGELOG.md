@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.3.2
+
+- 解除 DSH 版本门禁：`engines.dsh` 与 `dsh.compatibility.dsh` 改为 `*`，不再仅因宿主版本号拒绝安装或启动。
+
 ## 0.3.1
 
 - 设置页新增“启动 Chrome”卡片，使用相对路径 `.\chrome.exe` 启动远程调试。
