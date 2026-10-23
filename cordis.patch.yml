@@ -1,0 +1,28 @@
+# Chrome DevTools MCP + settings page.
+#
+# The first row mounts the Host/Client halves. The second row starts the stable
+# launcher, which reads the selected upstream version from
+# $DSH_HOME/dsh-chrome-devtools-mcp/state.json and then runs
+# `npx chrome-devtools-mcp@<latest|version>`.
+#
+# The MCP server still connects to an already-running debuggable Chrome; it does
+# not launch Chrome itself.
+
+- insert:
+    - id: dsh-chrome-devtools-mcp
+      name: '@lolkda/dsh-chrome-devtools-mcp'
+
+    - id: chrome-devtools-mcp
+      name: '@deepseek-ai/dsh-mcp-client'
+      config:
+        serverName: chrome-devtools
+        transport: stdio
+        command: !!js process.execPath
+        args:
+          - !!js decodeURIComponent(new URL('./node_modules/@lolkda/dsh-chrome-devtools-mcp/bin/launcher.mjs', baseUrl).pathname).replace(/^\/([A-Za-z]:)/, '$1')
+          - "--dsh-home"
+          - !!js process.env.DSH_HOME || decodeURIComponent(new URL('../../', baseUrl).pathname).replace(/^\/([A-Za-z]:)/, '$1').replace(/\/$/, '')
+          - "--browser-url=http://127.0.0.1:9222"
+          - "--no-usage-statistics"
+        failOnStartupError: false
+        toolCallTimeoutMs: 120000

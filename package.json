@@ -1,0 +1,79 @@
+{
+  "name": "@lolkda/dsh-chrome-devtools-mcp",
+  "version": "0.3.0",
+  "description": "Chrome DevTools MCP bundle and settings page for DeepSeek Harness",
+  "license": "MIT",
+  "author": "lolkda",
+  "type": "module",
+  "main": "lib/index.js",
+  "homepage": "https://github.com/lolkda/dsh-chrome-devtools-mcp#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lolkda/dsh-chrome-devtools-mcp.git"
+  },
+  "bugs": {
+    "url": "https://github.com/lolkda/dsh-chrome-devtools-mcp/issues"
+  },
+  "keywords": [
+    "dsh",
+    "deepseek-harness",
+    "chrome-devtools",
+    "mcp",
+    "browser",
+    "cdp"
+  ],
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org"
+  },
+  "files": [
+    "lib",
+    "client",
+    "bin",
+    "docs",
+    "cordis.patch.yml",
+    "README.md",
+    "CHANGELOG.md",
+    "LICENSE"
+  ],
+  "exports": {
+    ".": "./lib/index.js",
+    "./client": "./client/client.js",
+    "./cordis.patch.yml": "./cordis.patch.yml",
+    "./package.json": "./package.json"
+  },
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    },
+    "client": {
+      "platform": "web",
+      "inject": [
+        "@deepseek-ai/dsh-client-ui-settings"
+      ]
+    },
+    "compatibility": {
+      "dsh": ">=0.2.1-rc.2 <0.3.0",
+      "profiles": [
+        "web"
+      ]
+    }
+  },
+  "engines": {
+    "node": ">=22",
+    "dsh": ">=0.2.1-rc.2 <0.3.0"
+  },
+  "scripts": {
+    "test": "node --check client/client.js && node --test test/*.test.mjs",
+    "pack:check": "npm pack --dry-run",
+    "verify": "npm test && npm run pack:check",
+    "prepublishOnly": "npm test"
+  },
+  "devDependencies": {
+    "yaml": "^2.9.1"
+  },
+  "chromeDevtoolsMcp": {
+    "channel": "latest",
+    "source": "https://github.com/ChromeDevTools/chrome-devtools-mcp"
+  }
+}
