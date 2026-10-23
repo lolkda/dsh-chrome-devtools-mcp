@@ -17,7 +17,13 @@
 ## 安装
 
 ```bash
-dsh plugin --profile web add file:/app/project/dsh-chrome-devtools-mcp/lolkda-dsh-chrome-devtools-mcp-0.3.0.tgz
+dsh plugin --profile web add @lolkda/dsh-chrome-devtools-mcp@0.3.0
+```
+
+也可以从本地 tarball 安装：
+
+```bash
+dsh plugin --profile web add file:/path/to/lolkda-dsh-chrome-devtools-mcp-0.3.0.tgz
 ```
 
 安装前请删除 profile 里手工写的 `chrome-devtools-mcp` 插入块，避免同一个 `id` 冲突。安装后重启 DSH。
