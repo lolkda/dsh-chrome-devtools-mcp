@@ -109,7 +109,36 @@ npm trust github @lolkda/dsh-chrome-devtools-mcp \
   --allow-publish
 ```
 
-新配置必须在 **2 天内完成首次成功发布**，否则会过期。如果 npm 页面还不允许配置一个从未发布过的包，先用一次性 token 或 npm 网页完成首次发布，再配置 trusted publisher 并吊销 token。
+新配置必须在 **2 天内完成首次成功发布**，否则会过期。
+
+### 首次发布 bootstrap
+
+如果 npm 上还没有这个包，最稳的顺序是先用本地 OAuth 登录发布一次，再配置 trusted publisher：
+
+```bash
+npm login
+npm publish --access public --registry=https://registry.npmjs.org
+```
+
+`npm login` 会打开浏览器 OAuth 授权页，登录后本地会得到短期发布 token。
+
+首次发布成功后，在 npmjs.com 配置：
+
+```text
+Packages → @lolkda/dsh-chrome-devtools-mcp → Settings → Trusted publishing
+Provider: GitHub Actions
+Repository: lolkda/dsh-chrome-devtools-mcp
+Workflow filename: publish.yml
+Environment: 留空
+```
+
+然后清掉本地 token：
+
+```bash
+npm logout
+```
+
+并在包设置里选择“Require 2FA and disallow tokens”。之后的版本通过 GitHub Release 和 OIDC 发布；`0.3.0` 如果已经手动发布，工作流会因版本已存在而跳过，下一个版本开始走 OIDC。
 
 发布 tag 必须与 `package.json` 的版本一致，例如：
 
