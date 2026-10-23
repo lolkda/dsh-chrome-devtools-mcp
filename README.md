@@ -77,6 +77,32 @@ Chrome 需要以远程调试方式启动，或通过 `chrome://inspect/#remote-d
 
 反向隧道只需要 Windows 的 OpenSSH Client。OpenSSH Server 是可选能力，只有需要从 DSH 主动 SSH 到 Windows 时才需要。
 
+## CI 与发布
+
+- `.github/workflows/ci.yml`：`main` push 和 PR 时运行测试与 `npm pack --dry-run`。
+- `.github/workflows/publish.yml`：GitHub Release 发布时，通过 npm trusted publishing（OIDC）发布；也支持手动 `workflow_dispatch`，默认只做 dry run。
+
+工作流不使用 `NPM_TOKEN`。npm 侧需要先把仓库配置为 trusted publisher：
+
+```bash
+npm login
+npm trust github @lolkda/dsh-chrome-devtools-mcp \
+  --file publish.yml \
+  --repo lolkda/dsh-chrome-devtools-mcp \
+  --allow-publish
+```
+
+如果 npm 上还没有这个包，先完成一次首次发布（npm 网页或本地带 token 的发布），再配置 trusted publisher 并吊销一次性 token。
+
+发布 tag 必须与 `package.json` 的版本一致，例如：
+
+```bash
+git tag v0.3.0
+git push origin v0.3.0
+```
+
+然后在 GitHub 创建 Release，工作流会执行测试并发布到 npm。
+
 ## 开发
 
 ```bash
