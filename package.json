@@ -1,6 +1,6 @@
 {
   "name": "@lolkda/dsh-chrome-devtools-mcp",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "Chrome DevTools MCP bundle and settings page for DeepSeek Harness",
   "license": "MIT",
   "author": "lolkda",

@@ -8,6 +8,7 @@ import { parse } from 'yaml'
 const root = fileURLToPath(new URL('../', import.meta.url))
 const read = (path) => readFileSync(new URL(`../${path}`, import.meta.url), 'utf8')
 const pkg = JSON.parse(read('package.json'))
+const lock = JSON.parse(read('package-lock.json'))
 const patch = parse(read('cordis.patch.yml'), { logLevel: 'silent' })
 const rows = patch.flatMap((layer) => layer.insert ?? [])
 const hostRow = rows.find((entry) => entry.id === 'dsh-chrome-devtools-mcp')
@@ -15,7 +16,8 @@ const mcpRow = rows.find((entry) => entry.id === 'chrome-devtools-mcp')
 
 test('source package is a DSH bundle with a web client', () => {
   assert.equal(pkg.name, '@lolkda/dsh-chrome-devtools-mcp')
-  assert.equal(pkg.version, '0.3.0')
+  assert.match(pkg.version, /^\d+\.\d+\.\d+$/)
+  assert.equal(lock.version, pkg.version)
   assert.equal(pkg.main, 'lib/index.js')
   assert.equal(pkg.dsh?.bundle?.patch, './cordis.patch.yml')
   assert.equal(pkg.dsh?.client?.platform, 'web')

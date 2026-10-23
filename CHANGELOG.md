@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.3.1
+
+- 设置页新增“启动 Chrome”卡片，使用相对路径 `.\chrome.exe` 启动远程调试。
+- 提供 PowerShell、CMD 命令和复制按钮，不硬编码 Chrome 安装路径。
+- 修正 SSH 用户名说明，明确为 DSH 主机账号，不是 Windows 登录用户。
+- 新增 GitHub Actions CI 和 npm trusted publishing（OIDC）发布工作流。
+- 安装说明改为 npm 包 `@lolkda/dsh-chrome-devtools-mcp`。
+
 ## 0.3.0
 
 - 新增设置弹窗左侧“Chrome DevTools”页面。

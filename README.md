@@ -17,13 +17,13 @@
 ## 安装
 
 ```bash
-dsh plugin --profile web add @lolkda/dsh-chrome-devtools-mcp@0.3.0
+dsh plugin --profile web add @lolkda/dsh-chrome-devtools-mcp@0.3.1
 ```
 
 也可以从本地 tarball 安装：
 
 ```bash
-dsh plugin --profile web add file:/path/to/lolkda-dsh-chrome-devtools-mcp-0.3.0.tgz
+dsh plugin --profile web add file:/path/to/lolkda-dsh-chrome-devtools-mcp-0.3.1.tgz
 ```
 
 安装前请删除 profile 里手工写的 `chrome-devtools-mcp` 插入块，避免同一个 `id` 冲突。安装后重启 DSH。
@@ -144,13 +144,13 @@ Environment: 留空
 npm logout
 ```
 
-并在包设置里选择“Require 2FA and disallow tokens”。之后的版本通过 GitHub Release 和 OIDC 发布；`0.3.0` 如果已经手动发布，工作流会因版本已存在而跳过，下一个版本开始走 OIDC。
+并在包设置里选择“Require 2FA and disallow tokens”。之后的版本通过 GitHub Release 和 OIDC 发布；`0.3.0` 已通过本地 token 发布；`0.3.1` 开始通过 OIDC 发布。工作流遇到已存在的版本会自动跳过。
 
 发布 tag 必须与 `package.json` 的版本一致，例如：
 
 ```bash
-git tag v0.3.0
-git push origin v0.3.0
+git tag v0.3.1
+git push origin v0.3.1
 ```
 
 然后在 GitHub 创建 Release，工作流会执行测试并发布到 npm。
