@@ -82,7 +82,24 @@ Chrome 需要以远程调试方式启动，或通过 `chrome://inspect/#remote-d
 - `.github/workflows/ci.yml`：`main` push 和 PR 时运行测试与 `npm pack --dry-run`。
 - `.github/workflows/publish.yml`：GitHub Release 发布时，通过 npm trusted publishing（OIDC）发布；也支持手动 `workflow_dispatch`，默认只做 dry run。
 
-工作流不使用 `NPM_TOKEN`。npm 侧需要先把仓库配置为 trusted publisher：
+工作流不使用 `NPM_TOKEN`。npm 侧需要先把仓库配置为 trusted publisher。
+
+在 npmjs.com 打开：
+
+```text
+Packages → @lolkda/dsh-chrome-devtools-mcp → Settings → Trusted publishing
+```
+
+填写：
+
+```text
+Provider: GitHub Actions
+Repository: lolkda/dsh-chrome-devtools-mcp
+Workflow filename: publish.yml
+Environment: 留空
+```
+
+也可以用 npm 11.19.1+ 的 CLI：
 
 ```bash
 npm login
@@ -92,7 +109,7 @@ npm trust github @lolkda/dsh-chrome-devtools-mcp \
   --allow-publish
 ```
 
-如果 npm 上还没有这个包，先完成一次首次发布（npm 网页或本地带 token 的发布），再配置 trusted publisher 并吊销一次性 token。
+新配置必须在 **2 天内完成首次成功发布**，否则会过期。如果 npm 页面还不允许配置一个从未发布过的包，先用一次性 token 或 npm 网页完成首次发布，再配置 trusted publisher 并吊销 token。
 
 发布 tag 必须与 `package.json` 的版本一致，例如：
 
